@@ -13,7 +13,7 @@ import UpdateScreen from './App/Screens/UpdatScreen';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [Url, setUrl] = useState('https://422b-39-41-171-19.eu.ngrok.io')
+  const [Url, setUrl] = useState('https://422b-39-41-171-19.eu.ngrok.io') //As http was not working on my device I had to use ngrok to generate an https link
   const [UserName, setUserName] = useState('')
   return (
     <AppContext.Provider
