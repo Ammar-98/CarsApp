@@ -9,7 +9,6 @@ export default function TextInputComp(props) {
   const handleTextChange = (inputText) => {
     const newText = inputText.replace(/\s/g, ''); // replace all spaces with empty string
     props.setValue(newText);
-    // console.log(props.value)
   }
   return (
 

@@ -6,14 +6,12 @@ import AppContext from '../Components/AppContext';
 import TextInputComp from '../Components/TextInputComp';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function Login(props) {
-  var asyncEmail = ''
+  var asyncEmail = '' //variables to store the email and password
   var asyncPassword = ''
-  var asyncName=''
  
-  const getData = async () => {
+  const getData = async () => {  //First function to be called
     try {
-      const value = await AsyncStorage.getItem('Email')
-      console.log('hre')
+      const value = await AsyncStorage.getItem('Email') //check value in async storage
       if (value !== null) {
         
         asyncEmail = value
@@ -27,7 +25,7 @@ export default function Login(props) {
   }
   const getPass = async () => {
     try {
-      const value = await AsyncStorage.getItem('Password')
+      const value = await AsyncStorage.getItem('Password') //Check password in async storage
       if (value !== null) {
         asyncPassword = value
         
@@ -38,17 +36,14 @@ export default function Login(props) {
       // error reading value
     }
   }
-  const AutoLogin = async () => {
+  const AutoLogin = async () => { //Try to login if password and email found in async
 
     try {
-      console.log(asyncEmail, 'Email')
-      console.log(asyncPassword, 'pass')
       const res = await axios.get(Url + "/users?email=" + asyncEmail + '&password=' + asyncPassword);
-      console.log('res', res.data.length)
-      if (res.data.length != 0) {
+      if (res.data.length != 0) {  //if user found
         setloading(false)
-        props.navigation.reset({ index: 0, routes: [{ name: 'Dashboard' }] })
-        ToastAndroid.show('AutoLogin Successful', ToastAndroid.SHORT);
+        props.navigation.reset({ index: 0, routes: [{ name: 'Dashboard' }] })  //Go to Dashboard and clear stack
+        ToastAndroid.show('AutoLogin Successful', ToastAndroid.SHORT); 
       }
       else {
         setloading(false)
@@ -61,31 +56,28 @@ export default function Login(props) {
 
   }
   useEffect(() => {
-    getData()
-
-
-
+    getData() //Initially this is called
   }, [])
 
-  const [loading, setloading] = useState(true)
+  const [loading, setloading] = useState(true)  //Initally true as Autologin is in progress
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { Url,UserName,setUserName } = useContext(AppContext)
-  const storeEmail = async (value) => {
+  const storeEmail = async (value) => {  //Store Email in Async Storage
     try {
       await AsyncStorage.setItem('Email', String(value))
     } catch (e) {
       console.log(e)
     }
   }
-  const storePassword = async (value) => {
+  const storePassword = async (value) => { //Store Password in Async Storage
     try {
       await AsyncStorage.setItem('Password', String(value))
     } catch (e) {
       console.log(e)
     }
   }
-  const StoreName = async (value) => {
+  const StoreName = async (value) => {  //Store name in async storage
     try {
       setUserName(value)
       await AsyncStorage.setItem('Name', String(value))
@@ -94,15 +86,14 @@ export default function Login(props) {
     }
   }
 
-  const handleLogin = async () => {
+  const handleLogin = async () => {  //used to manually login
     try {
-      const res = await axios.get(Url + "/users?email=" + email+'&password='+password);
-      if (res.data.length != 0) {
-        console.log(res.data[0].name)
-        StoreName(res.data[0].name)
+      const res = await axios.get(Url + "/users?email=" + email+'&password='+password); //Check user
+      if (res.data.length != 0) {                //If found
+        StoreName(res.data[0].name)   //Retain Auth
         storeEmail(email)
         storePassword(password)
-        props.navigation.reset({ index: 0, routes: [{ name: 'Dashboard' }] })
+        props.navigation.reset({ index: 0, routes: [{ name: 'Dashboard' }] }) //Navigate to Dashboard
       }
       else {
         ToastAndroid.show('Credentials do not match', ToastAndroid.SHORT);
@@ -136,7 +127,7 @@ export default function Login(props) {
             Don't have an accout?
           </Text>
           <TouchableOpacity onPress={() => props.navigation.navigate('SignUp')}>
-            <Text style={{ color: 'blue', fontSize: 20 }}>Sign Up</Text>
+            <Text style={{ color: 'blue', fontSize: 20 }}>Sign Up</Text>     
           </TouchableOpacity>
         </View>
       </View>

@@ -1,22 +1,20 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import AppContext from '../Components/AppContext';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ToastAndroid } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ToastAndroid } from 'react-native';
 import TextInputComp from '../Components/TextInputComp';
 export default function SignUp(props) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const { Url } = useContext(AppContext)
-    const handleSignUp = async () => {
-        console.log(name, password)
+    const handleSignUp = async () => {  //SignUp function
         try {
-            const res = await axios.get(Url + "/users?email=" + email);
+            const res = await axios.get(Url + "/users?email=" + email); //Check if email is not already registered
             console.log('res', res.data.length)
-            if (res.data.length == 0) {
-                const ress = await axios.post(Url + "/users", { "name": name, "email":email, "password": password })
-                console.log('res', ress.data)
+            if (res.data.length == 0) {  //if true register user
+                const ress = await axios.post(Url + "/users", { "name": name, "email": email, "password": password })
                 props.navigation.reset({ index: 0, routes: [{ name: 'Login' }] })
                 ToastAndroid.show('SignUp Successful, Login', ToastAndroid.SHORT);
             }
@@ -53,7 +51,7 @@ const styles = StyleSheet.create({
         fontSize: 42,
         fontWeight: 'bold',
         marginBottom: 20,
-        color:'blue'
+        color: 'blue'
     },
     input: {
         height: 40,
