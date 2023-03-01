@@ -1,0 +1,42 @@
+{
+  "users": [
+    {
+      "name": "Ammar",
+      "email": "ammarif888@gmail.com",
+      "password": "123",
+      "id": 1
+    },
+    {
+      "name": "sbshh",
+      "email": "ammarif188@gmail.com",
+      "password": "hshsj",
+      "id": 2
+    }
+  ],
+  "cars": [
+    {
+      "name": "Audi",
+      "color": "white",
+      "model": "2019",
+      "make": "2019",
+      "regno": "123",
+      "id": 2
+    },
+    {
+      "name": "Toyota",
+      "color": "white",
+      "model": "2023",
+      "make": "2019",
+      "regno": "133",
+      "id": 4
+    },
+    {
+      "name": "Honda",
+      "color": "white",
+      "model": "2019",
+      "make": "2019",
+      "regno": "133",
+      "id": 5
+    }
+  ]
+}
